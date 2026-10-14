@@ -1,0 +1,21 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+[[mods]]
+modId="cb_chunkload_fix"
+version="0.1.1"
+displayName="Chisels & Bits Chunk Load Fix"
+displayTest="IGNORE_ALL_VERSION"
+description="Client-only snapshot iteration fix for Chisels & Bits 20.1.20 chunk model updates."
+[[dependencies.cb_chunkload_fix]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"
+[[dependencies.cb_chunkload_fix]]
+modId="chiselsandbits"
+mandatory=false
+versionRange="[20.1.20]"
+ordering="AFTER"
+side="CLIENT"

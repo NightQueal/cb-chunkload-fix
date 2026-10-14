@@ -1,0 +1,32 @@
+plugins {
+ id 'java'
+ id 'net.minecraftforge.gradle' version '6.0.54'
+}
+version = '0.1.1'
+group = 'dev.civilized.cbchunkfix'
+base { archivesName = 'cb-chunkload-fix-1.20.1' }
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+minecraft { mappings channel: 'official', version: '1.20.1' }
+dependencies { minecraft 'net.minecraftforge:forge:1.20.1-47.4.26' }
+tasks.withType(JavaCompile).configureEach {
+ options.encoding = 'UTF-8'
+ // All injection targets are non-remapped mod/JDK methods; no refmap is needed.
+ options.compilerArgs += ['-proc:none']
+}
+tasks.register('regressionTest', JavaExec) {
+ dependsOn testClasses
+ classpath = sourceSets.test.runtimeClasspath
+ mainClass = 'dev.civilized.cbchunkfix.SnapshotRefreshTest'
+}
+tasks.named('check').configure { dependsOn regressionTest }
+tasks.register('auditTarget', JavaExec) {
+ dependsOn testClasses
+ classpath = sourceSets.test.runtimeClasspath
+ mainClass = 'dev.civilized.cbchunkfix.TargetAudit'
+ args providers.gradleProperty('cbJar').getOrElse('missing-chisels-and-bits.jar')
+}
+tasks.named('jar', Jar).configure {
+ from('LICENSE')
+ manifest { attributes('MixinConfigs': 'cb_chunkload_fix.mixins.json') }
+ finalizedBy 'reobfJar'
+}

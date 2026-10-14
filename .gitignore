@@ -1,0 +1,10 @@
+.gradle/
+build/
+run*/
+*.log
+*.zip
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+.idea/
+*.iml
+publish_local.py
