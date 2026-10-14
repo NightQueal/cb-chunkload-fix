@@ -8,3 +8,5 @@ run*/
 .idea/
 *.iml
 publish_local.py
+curseforge-upload/
+CURSEFORGE.md
